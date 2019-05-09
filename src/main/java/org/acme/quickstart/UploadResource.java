@@ -19,15 +19,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Path("/upload")
+@Path("/api/xavier/upload")
 public class UploadResource {
 
     @ConfigProperty(name = "upload.dir")
     Optional<String> uploadDir;
 
     private File getUploadDir(String fileName) {
-        String dir = uploadDir.orElseGet(() -> System.getProperty("user.home"));
-        return Paths.get(dir).resolve(fileName).toFile();
+        java.nio.file.Path path;
+        if (uploadDir.isPresent()) {
+            path = Paths.get(uploadDir.get());
+        } else {
+            String home = System.getProperty("user.home");
+            path = Paths.get(home).resolve(".uploads");
+        }
+
+        if (!path.toFile().exists()) {
+            boolean mkdirs = path.toFile().mkdirs();
+        }
+
+        return path.resolve(fileName).toFile();
     }
 
     private void writeFile(byte[] fileContent, String filename) throws IOException {
@@ -45,13 +56,12 @@ public class UploadResource {
     }
 
     @POST
-    @Path("/upload")
     @Consumes("multipart/form-data")
     public Response uploadFile(MultipartFormDataInput input) {
         String fileName = "";
 
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-        List<InputPart> inputParts = uploadForm.get("uploadedFile");
+        List<InputPart> inputParts = uploadForm.get("file");
 
         for (InputPart inputPart : inputParts) {
             try {
