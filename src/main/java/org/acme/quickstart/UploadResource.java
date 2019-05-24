@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Path("/api/xavier/camel/upload")
+//@Path("/api/xavier/camel/upload")
+@Path("/camel/upload")
 public class UploadResource {
 
     @ConfigProperty(name = "upload.dir")
@@ -81,7 +82,7 @@ public class UploadResource {
 
         return Response.status(200).build();
     }
-    
+
     private String getFileName(MultivaluedMap<String, String> header) {
 
         String[] contentDisposition = header.getFirst("Content-Disposition").split(";");
