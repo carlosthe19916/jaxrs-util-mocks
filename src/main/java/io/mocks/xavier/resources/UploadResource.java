@@ -1,4 +1,4 @@
-package org.acme.quickstart;
+package io.mocks.xavier.resources;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

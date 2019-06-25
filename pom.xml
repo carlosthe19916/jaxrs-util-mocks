@@ -32,6 +32,14 @@
 
         <dependency>
             <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-undertow-websockets</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-scheduler</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
         <dependency>
