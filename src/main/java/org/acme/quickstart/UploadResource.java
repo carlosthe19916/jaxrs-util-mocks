@@ -57,7 +57,6 @@ public class UploadResource {
     }
 
     @POST
-    @Path("/{customerId}")
     @Consumes("multipart/form-data")
     public Response uploadFile(MultipartFormDataInput input) {
         String fileName = "";
