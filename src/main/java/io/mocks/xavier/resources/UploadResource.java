@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-//@Path("/api/xavier/camel/upload")
-@Path("/api/migration-analytics/upload")
+@Path("/api/xavier/upload")
 public class UploadResource {
 
     @ConfigProperty(name = "upload.dir")

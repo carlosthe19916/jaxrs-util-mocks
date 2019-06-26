@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @ApplicationScoped
-@Path("/api/migration-analytics/report")
+@Path("/api/xavier/report")
 public class ReportResource {
 
     @Inject
