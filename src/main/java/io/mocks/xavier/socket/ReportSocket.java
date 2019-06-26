@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @ApplicationScoped
-@ServerEndpoint("/report")
+@ServerEndpoint("/api/migration-analytics/report")
 public class ReportSocket {
 
     Map<String, Session> sessions = new ConcurrentHashMap<>();
