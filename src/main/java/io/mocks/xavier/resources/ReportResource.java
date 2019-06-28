@@ -7,6 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -19,8 +20,17 @@ public class ReportResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Report> getAllReports() {
-        return registry.getAllReports();
+    public Response getAllReports(
+            @QueryParam("page") @DefaultValue("1") int page,
+            @QueryParam("limit") @DefaultValue("10") int limit
+    ) {
+        int total = registry.getTotal();
+        List<Report> reports = registry.getAllReports(page, limit);
+
+        return Response.ok()
+                .header("X-Total-Count", total)
+                .entity(reports)
+                .build();
     }
 
     @GET

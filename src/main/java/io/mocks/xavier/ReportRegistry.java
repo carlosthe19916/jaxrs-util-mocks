@@ -7,6 +7,8 @@ import javax.enterprise.context.ApplicationScoped;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @ApplicationScoped
 public class ReportRegistry {
@@ -36,6 +38,16 @@ public class ReportRegistry {
         return new ArrayList<>(reports.values());
     }
 
+    public List<Report> getAllReports(int page, int pageSize) {
+        List<Report> list = new ArrayList<>(reports.values());
+        Map<Integer, List<Report>> collect = IntStream.range(0, (list.size() + pageSize - 1) / pageSize)
+                .boxed()
+                .collect(
+                        Collectors.toMap(i -> i, i -> list.subList(i * pageSize, Math.min(pageSize * (i + 1), list.size())))
+                );
+        return collect.get(page - 1);
+    }
+
     public Report getRandomReport() {
         if (!reports.isEmpty()) {
             int length = reports.keySet().toArray().length;
@@ -45,4 +57,9 @@ public class ReportRegistry {
         }
         return null;
     }
+
+    public int getTotal() {
+        return reports.size();
+    }
+
 }

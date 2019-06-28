@@ -18,6 +18,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ReportScheduler {
 
     private final AtomicLong counter = new AtomicLong(0);
+    private static final int MAX_NUMBER_OF_REPORTS = 1000;
 
     @Inject
     ReportRegistry registry;
@@ -34,10 +35,10 @@ public class ReportScheduler {
     @ReportEvent(value = ReportEventType.DELETED)
     Event<Report> deleteEvent;
 
-    @Scheduled(every = "5s")
+    @Scheduled(every = "3s")
     void addReport() {
         counter.getAndIncrement();
-        if (counter.get() == 50) {
+        if (counter.get() >= MAX_NUMBER_OF_REPORTS) {
             registry.getAllReports().forEach(this::deleteReportBy);
             counter.set(0);
         }
@@ -60,7 +61,7 @@ public class ReportScheduler {
     void updateReport() {
         Report report = registry.getRandomReport();
         if (report != null) {
-            report.setAnalysisStatus(Status.FINISHED);
+            report.setAnalysisStatus(Status.randomStatus());
 
             registry.updateReport(report);
             modifiedEvent.fire(report);
