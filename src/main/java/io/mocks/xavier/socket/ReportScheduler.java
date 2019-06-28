@@ -35,7 +35,7 @@ public class ReportScheduler {
     @ReportEvent(value = ReportEventType.DELETED)
     Event<Report> deleteEvent;
 
-    @Scheduled(every = "3s")
+    @Scheduled(every = "5s")
     void addReport() {
         counter.getAndIncrement();
         if (counter.get() >= MAX_NUMBER_OF_REPORTS) {
@@ -57,7 +57,7 @@ public class ReportScheduler {
         addedEvent.fire(report);
     }
 
-    @Scheduled(every = "3s")
+    @Scheduled(every = "1s")
     void updateReport() {
         Report report = registry.getRandomReport();
         if (report != null) {
@@ -68,7 +68,7 @@ public class ReportScheduler {
         }
     }
 
-    @Scheduled(every = "20s")
+    @Scheduled(every = "15s")
     void deleteReport() {
         Report report = registry.getRandomReport();
         if (report != null) {

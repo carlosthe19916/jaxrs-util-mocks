@@ -2,6 +2,7 @@ package io.mocks.xavier.resources;
 
 import io.mocks.xavier.ReportRegistry;
 import io.mocks.xavier.model.Report;
+import io.mocks.xavier.model.Search;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -21,23 +22,33 @@ public class ReportResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllReports(
+            @QueryParam("filterText") @DefaultValue("") String filterText,
             @QueryParam("page") @DefaultValue("1") int page,
             @QueryParam("limit") @DefaultValue("10") int limit
     ) {
-        int total = registry.getTotal();
-        List<Report> reports = registry.getAllReports(page, limit);
+        Search search = registry.getAllReports(filterText, page, limit);
 
         return Response.ok()
-                .header("X-Total-Count", total)
-                .entity(reports)
+                .header("X-Total-Count", search.getTotal())
+                .entity(search.getReports())
                 .build();
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Report getReportById(@PathParam("id") Long id) {
-        return registry.getReport(id);
+    public Response getReportById(@PathParam("id") Long id) {
+        Report report = registry.getReport(id);
+        Response response;
+        if (report != null) {
+            response = Response.ok()
+                    .entity(report)
+                    .build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND)
+                    .build();
+        }
+        return response;
     }
 
 }

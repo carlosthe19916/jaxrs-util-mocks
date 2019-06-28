@@ -1,10 +1,16 @@
 package io.mocks.xavier.resources;
 
+import io.mocks.xavier.ReportEvent;
+import io.mocks.xavier.ReportEventType;
+import io.mocks.xavier.ReportRegistry;
+import io.mocks.xavier.model.Report;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
@@ -15,15 +21,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Stream;
 
 @Path("/api/xavier/upload")
 public class UploadResource {
 
     @ConfigProperty(name = "upload.dir")
     Optional<String> uploadDir;
+
+    @Inject
+    ReportRegistry registry;
+
+    @Inject
+    @ReportEvent(value = ReportEventType.ADDED)
+    Event<Report> addedEvent;
 
     private File getUploadDir(String fileName) {
         java.nio.file.Path path;
@@ -61,9 +74,9 @@ public class UploadResource {
         String fileName = "";
 
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-        List<InputPart> inputParts = uploadForm.get("file");
+        List<InputPart> fileInputParts = uploadForm.get("file");
 
-        for (InputPart inputPart : inputParts) {
+        for (InputPart inputPart : fileInputParts) {
             try {
                 MultivaluedMap<String, String> header = inputPart.getHeaders();
                 fileName = getFileName(header);
@@ -77,6 +90,20 @@ public class UploadResource {
             }
 
         }
+
+
+
+        Report report = new Report();
+        report.setCustomerId("111111");
+        report.setFileName(fileName);
+        report.setNumberOfHosts(new Random().nextLong());
+        report.setTotalDiskSpace(new Random().nextLong());
+        report.setTotalPrice(new Random().nextLong());
+        report.setCreationDate(new Date().getTime());
+
+        registry.addReport(report);
+        addedEvent.fire(report);
+
 
         return Response.status(200).build();
     }

@@ -1,6 +1,7 @@
 package io.mocks.xavier;
 
 import io.mocks.xavier.model.Report;
+import io.mocks.xavier.model.Search;
 import io.mocks.xavier.model.Status;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -38,14 +39,21 @@ public class ReportRegistry {
         return new ArrayList<>(reports.values());
     }
 
-    public List<Report> getAllReports(int page, int pageSize) {
+    public Search getAllReports(String filterText, int page, int pageSize) {
         List<Report> list = new ArrayList<>(reports.values());
-        Map<Integer, List<Report>> collect = IntStream.range(0, (list.size() + pageSize - 1) / pageSize)
+        Collections.reverse(list);
+
+        List<Report> reverseList = list.stream()
+                .filter(report -> report.getFileName().contains(filterText))
+                .collect(Collectors.toList());
+
+        Map<Integer, List<Report>> collect = IntStream.range(0, (reverseList.size() + pageSize - 1) / pageSize)
                 .boxed()
                 .collect(
-                        Collectors.toMap(i -> i, i -> list.subList(i * pageSize, Math.min(pageSize * (i + 1), list.size())))
+                        Collectors.toMap(i -> i, i -> reverseList.subList(i * pageSize, Math.min(pageSize * (i + 1), reverseList.size())))
                 );
-        return collect.get(page - 1);
+
+        return new Search(collect.get(page - 1), reverseList.size());
     }
 
     public Report getRandomReport() {
