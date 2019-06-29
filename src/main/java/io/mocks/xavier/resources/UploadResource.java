@@ -2,8 +2,9 @@ package io.mocks.xavier.resources;
 
 import io.mocks.xavier.ReportEvent;
 import io.mocks.xavier.ReportEventType;
-import io.mocks.xavier.ReportRegistry;
+import io.mocks.xavier.registry.ReportRegistry;
 import io.mocks.xavier.model.Report;
+import io.mocks.xavier.registry.UserRegistry;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
@@ -12,18 +13,14 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Stream;
 
 @Path("/api/xavier/upload")
 public class UploadResource {
@@ -33,6 +30,9 @@ public class UploadResource {
 
     @Inject
     ReportRegistry registry;
+
+    @Inject
+    UserRegistry userSession;
 
     @Inject
     @ReportEvent(value = ReportEventType.ADDED)
@@ -104,6 +104,9 @@ public class UploadResource {
         registry.addReport(report);
         addedEvent.fire(report);
 
+
+        // Change user session status
+        userSession.changeUserStatus();
 
         return Response.status(200).build();
     }

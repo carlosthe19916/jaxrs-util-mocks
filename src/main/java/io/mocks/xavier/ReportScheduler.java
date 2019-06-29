@@ -1,10 +1,9 @@
-package io.mocks.xavier.socket;
+package io.mocks.xavier;
 
-import io.mocks.xavier.ReportEvent;
-import io.mocks.xavier.ReportEventType;
-import io.mocks.xavier.ReportRegistry;
+import io.mocks.xavier.registry.ReportRegistry;
 import io.mocks.xavier.model.Report;
 import io.mocks.xavier.model.Status;
+import io.mocks.xavier.registry.UserRegistry;
 import io.quarkus.scheduler.Scheduled;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -21,7 +20,11 @@ public class ReportScheduler {
     private static final int MAX_NUMBER_OF_REPORTS = 1000;
 
     @Inject
-    ReportRegistry registry;
+    ReportRegistry reportDB;
+
+
+    @Inject
+    UserRegistry userSession;
 
     @Inject
     @ReportEvent(value = ReportEventType.ADDED)
@@ -37,9 +40,15 @@ public class ReportScheduler {
 
     @Scheduled(every = "5s")
     void addReport() {
+        // Dont create reports if is the first time of the user
+        if (userSession.getUser().isFirstTimeCreatingReports()) {
+            return;
+        }
+
+
         counter.getAndIncrement();
         if (counter.get() >= MAX_NUMBER_OF_REPORTS) {
-            registry.getAllReports().forEach(this::deleteReportBy);
+            reportDB.getAllReports().forEach(this::deleteReportBy);
             counter.set(0);
         }
 
@@ -53,31 +62,31 @@ public class ReportScheduler {
         report.setTotalPrice(new Random().nextLong());
         report.setCreationDate(new Date().getTime());
 
-        registry.addReport(report);
+        reportDB.addReport(report);
         addedEvent.fire(report);
     }
 
     @Scheduled(every = "1s")
     void updateReport() {
-        Report report = registry.getRandomReport();
+        Report report = reportDB.getRandomReport();
         if (report != null) {
             report.setAnalysisStatus(Status.randomStatus());
 
-            registry.updateReport(report);
+            reportDB.updateReport(report);
             modifiedEvent.fire(report);
         }
     }
 
     @Scheduled(every = "15s")
     void deleteReport() {
-        Report report = registry.getRandomReport();
+        Report report = reportDB.getRandomReport();
         if (report != null) {
             deleteReportBy(report);
         }
     }
 
     private void deleteReportBy(Report report) {
-        registry.deleteReport(report.getId());
+        reportDB.deleteReport(report.getId());
         deleteEvent.fire(report);
     }
 

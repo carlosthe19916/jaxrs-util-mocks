@@ -1,4 +1,4 @@
-package io.mocks.xavier;
+package io.mocks.xavier.registry;
 
 import io.mocks.xavier.model.Report;
 import io.mocks.xavier.model.Search;

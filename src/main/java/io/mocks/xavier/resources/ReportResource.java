@@ -1,6 +1,6 @@
 package io.mocks.xavier.resources;
 
-import io.mocks.xavier.ReportRegistry;
+import io.mocks.xavier.registry.ReportRegistry;
 import io.mocks.xavier.model.Report;
 import io.mocks.xavier.model.Search;
 
@@ -9,8 +9,6 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @ApplicationScoped
 @Path("/api/xavier/report")
