@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 @ApplicationScoped
 public class ReportRegistry {
 
-    private final AtomicLong ids = new AtomicLong(0);
+    private final AtomicLong ids = new AtomicLong(1);
     private final Map<Long, Report> reports = new ConcurrentHashMap<>();
 
     public void addReport(Report report) {

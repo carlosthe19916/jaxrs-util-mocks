@@ -1,8 +1,8 @@
 package io.mocks.xavier.resources;
 
-import io.mocks.xavier.registry.ReportRegistry;
 import io.mocks.xavier.model.Report;
 import io.mocks.xavier.model.Search;
+import io.mocks.xavier.registry.ReportRegistry;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -46,6 +46,23 @@ public class ReportResource {
             response = Response.status(Response.Status.NOT_FOUND)
                     .build();
         }
+        return response;
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteReportById(@PathParam("id") Long id) {
+        Report report = registry.getReport(id);
+
+        Response response;
+        if (report != null) {
+            registry.deleteReport(id);
+            response = Response.ok().build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND).build();
+        }
+
         return response;
     }
 
