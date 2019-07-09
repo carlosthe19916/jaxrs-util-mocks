@@ -38,7 +38,7 @@ public class ReportScheduler {
     @ReportEvent(value = ReportEventType.DELETED)
     Event<Report> deleteEvent;
 
-    @Scheduled(every = "5s")
+    @Scheduled(every = "8s")
     void addReport() {
         // Dont create reports if is the first time of the user
         if (userSession.getUser().isFirstTimeCreatingReports()) {
@@ -66,10 +66,14 @@ public class ReportScheduler {
         addedEvent.fire(report);
     }
 
-    @Scheduled(every = "1s")
+    @Scheduled(every = "5s")
     void updateReport() {
         Report report = reportDB.getRandomReport();
         if (report != null) {
+            Status status;
+            do {
+                status = Status.randomStatus();
+            } while (status == Status.PROGRESS);
             report.setAnalysisStatus(Status.randomStatus());
 
             reportDB.updateReport(report);
@@ -77,13 +81,13 @@ public class ReportScheduler {
         }
     }
 
-    @Scheduled(every = "15s")
-    void deleteReport() {
-        Report report = reportDB.getRandomReport();
-        if (report != null) {
-            deleteReportBy(report);
-        }
-    }
+//    @Scheduled(every = "60s")
+//    void deleteReport() {
+//        Report report = reportDB.getRandomReport();
+//        if (report != null) {
+//            deleteReportBy(report);
+//        }
+//    }
 
     private void deleteReportBy(Report report) {
         reportDB.deleteReport(report.getId());
