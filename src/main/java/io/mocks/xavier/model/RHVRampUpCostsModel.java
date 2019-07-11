@@ -40,7 +40,23 @@ public class RHVRampUpCostsModel
     private Double year3RhvTotalGrowthValue;
     private Double year3RhvGrandTotalGrowthValue;
 
-    public RHVRampUpCostsModel() {}
+    public RHVRampUpCostsModel() {
+        year1RhvTotalValue = 1_000_000D;
+        year2RhvTotalValue = 1_000_000D;
+        year3RhvTotalValue = 1_000_000D;
+
+        year1RhvTotalGrowthValue = 1_000_000D;
+        year2RhvTotalGrowthValue = 1_000_000D;
+        year3RhvTotalGrowthValue = 1_000_000D;
+
+        rhvSwitchLearningSubsValue = 1_000_000D;
+        rhvSwitchConsultValue = 1_000_000D;
+        rhvSwitchTAndEValue = 1_000_000D;
+
+        year1RhvGrandTotalGrowthValue = 1_000_000D;
+        year2RhvGrandTotalGrowthValue = 1_000_000D;
+        year3RhvGrandTotalGrowthValue = 1_000_000D;
+    }
 
     public Double getYear1RhvServers() {
         return year1RhvServers;

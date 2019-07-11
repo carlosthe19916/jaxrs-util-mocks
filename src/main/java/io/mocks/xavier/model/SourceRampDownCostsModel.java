@@ -19,7 +19,11 @@ public class SourceRampDownCostsModel
     private Double year3SourceMaintenancePerServerValue;
     private Double year3SourceMaintenanceTotalValue;
 
-    public SourceRampDownCostsModel() {}
+    public SourceRampDownCostsModel() {
+        year1SourceMaintenanceTotalValue = 10_000_000D;
+        year2SourceMaintenanceTotalValue = 12_000_000D;
+        year3SourceMaintenanceTotalValue = 14_000_000D;
+    }
 
     public Double getYear1ServersOffSource() {
         return year1ServersOffSource;
