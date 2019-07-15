@@ -62,7 +62,7 @@ public class ReportSocket {
                                 .add("totalDiskSpace", report.getTotalDiskSpace())
                                 .add("totalPrice", report.getTotalPrice())
                                 .add("creationDate", report.getCreationDate())
-                                .add("analysisStatus", report.getAnalysisStatus().toString())
+                                .add("analysisStatus", report.getStatus().toString())
                                 .build()
                         )
                         .build()

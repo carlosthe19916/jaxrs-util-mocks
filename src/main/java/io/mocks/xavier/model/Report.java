@@ -8,7 +8,7 @@ public class Report {
     private Long totalDiskSpace;
     private Long totalPrice;
     private Long creationDate;
-    private Status analysisStatus;
+    private Status status;
 
     public Report() {
 
@@ -80,11 +80,11 @@ public class Report {
         this.creationDate = creationDate;
     }
 
-    public Status getAnalysisStatus() {
-        return analysisStatus;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setAnalysisStatus(Status analysisStatus) {
-        this.analysisStatus = analysisStatus;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Random;
 
 public enum Status {
-    PROGRESS,
+    IN_PROGRESS,
     FAILED,
-    FINISHED;
+    CREATED;
 
     private static final List<Status> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
     private static final int SIZE = VALUES.size();

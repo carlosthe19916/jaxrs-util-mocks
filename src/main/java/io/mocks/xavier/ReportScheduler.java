@@ -73,8 +73,8 @@ public class ReportScheduler {
             Status status;
             do {
                 status = Status.randomStatus();
-            } while (status == Status.PROGRESS);
-            report.setAnalysisStatus(Status.randomStatus());
+            } while (status == Status.IN_PROGRESS);
+            report.setStatus(Status.randomStatus());
 
             reportDB.updateReport(report);
             modifiedEvent.fire(report);

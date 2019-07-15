@@ -19,7 +19,7 @@ public class ReportRegistry {
 
     public void addReport(Report report) {
         report.setId(ids.getAndIncrement());
-        report.setAnalysisStatus(Status.PROGRESS);
+        report.setStatus(Status.IN_PROGRESS);
         reports.put(report.getId(), report);
     }
 
