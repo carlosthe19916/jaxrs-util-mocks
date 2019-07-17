@@ -23,13 +23,18 @@ public class ReportResource {
     public Response getAllReports(
             @QueryParam("filterText") @DefaultValue("") String filterText,
             @QueryParam("page") @DefaultValue("1") int page,
-            @QueryParam("limit") @DefaultValue("10") int limit
+            @QueryParam("size") @DefaultValue("10") int size
     ) {
-        Search search = registry.getAllReports(filterText, page, limit);
+        Search search = registry.getAllReports(filterText, page, size);
+
+
+        ReportSearchResult result = new ReportSearchResult();
+        result.setContent(search.getReports());
+        result.setTotalElements(search.getTotal());
+
 
         return Response.ok()
-                .header("X-Total-Count", search.getTotal())
-                .entity(search.getReports())
+                .entity(result)
                 .build();
     }
 
