@@ -25,7 +25,9 @@ public class ReportResource {
             @QueryParam("page") @DefaultValue("1") int page,
             @QueryParam("size") @DefaultValue("10") int size
     ) {
-        Search search = registry.getAllReports(filterText, page, size);
+        // Adding page + 1 because the real backend starts the page from 0
+        // Just to simulate it.
+        Search search = registry.getAllReports(filterText, page + 1, size);
 
 
         ReportSearchResult result = new ReportSearchResult();
