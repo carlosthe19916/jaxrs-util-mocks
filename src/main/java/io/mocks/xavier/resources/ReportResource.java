@@ -9,6 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @ApplicationScoped
@@ -121,6 +122,49 @@ public class ReportResource {
             estimation.setFileName(report.getFileName());
 
             response = Response.ok(estimation).build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return response;
+    }
+
+    @GET
+    @Path("/{id}/workload-inventory")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getWorkloadInventory(
+            @PathParam("id") Long id,
+            @QueryParam("page") @DefaultValue("1") int page,
+            @QueryParam("size") @DefaultValue("10") int size
+    ) {
+        Report report = registry.getReport(id);
+
+        Response response;
+        if (report != null) {
+            List<WorkloadInventoryModel> list = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                WorkloadInventoryModel model= new WorkloadInventoryModel();
+                model.setProvider("IMV vCenter");
+                model.setDatacenter("V2V-DC");
+                model.setCluster("Cluster 1");
+                model.setVmName("ytale-ubuntu-arl15-001");
+                model.setWorkload(Arrays.asList("SAP HANA", "Tomcat"));
+                model.setOsName("RHEL");
+                model.setOsDescription("Red Hat Enterprise Linux Server release 7.6 (Maipo)");
+                model.setComplexity("Medium");
+                model.setRecommendedTargetsIMS(Arrays.asList("OSP", "RHV"));
+                model.setFlagIMS(Arrays.asList("Shared disk"));
+                model.setDiskSpace(4565421125L);
+                model.setMemory(2147483648L);
+                model.setCpuCores(1L);
+                list.add(model);
+            }
+
+            ReportSearchResult result = new ReportSearchResult();
+            result.setContent(list);
+            result.setTotalElements(list.size());
+
+            response = Response.ok(result).build();
         } else {
             response = Response.status(Response.Status.NOT_FOUND).build();
         }

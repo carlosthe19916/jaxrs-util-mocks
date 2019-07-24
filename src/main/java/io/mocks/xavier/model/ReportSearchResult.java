@@ -12,7 +12,7 @@ public class ReportSearchResult {
     private Integer numberOfElements;
     private Integer number;
     private Integer totalElements;
-    private List<Report> content;
+    private List content;
 
     public String getSort() {
         return sort;
@@ -78,11 +78,11 @@ public class ReportSearchResult {
         this.totalElements = totalElements;
     }
 
-    public List<Report> getContent() {
+    public List getContent() {
         return content;
     }
 
-    public void setContent(List<Report> content) {
+    public void setContent(List content) {
         this.content = content;
     }
 }
