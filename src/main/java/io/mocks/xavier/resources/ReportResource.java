@@ -148,7 +148,7 @@ public class ReportResource {
                 model.setDatacenter("V2V-DC");
                 model.setCluster("Cluster 1");
                 model.setVmName("ytale-ubuntu-arl15-001");
-                model.setWorkload(Arrays.asList("SAP HANA", "Tomcat"));
+                model.setWorkloads(Arrays.asList("SAP HANA", "Tomcat"));
                 model.setOsName("RHEL");
                 model.setOsDescription("Red Hat Enterprise Linux Server release 7.6 (Maipo)");
                 model.setComplexity("Medium");

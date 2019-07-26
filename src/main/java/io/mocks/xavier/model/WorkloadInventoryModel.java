@@ -8,7 +8,7 @@ public class WorkloadInventoryModel {
     private String datacenter;
     private String cluster;
     private String vmName;
-    private List<String> workload;
+    private List<String> workloads;
     private String osName;
     private String osDescription;
     private String complexity;
@@ -50,12 +50,12 @@ public class WorkloadInventoryModel {
         this.vmName = vmName;
     }
 
-    public List<String> getWorkload() {
-        return workload;
+    public List<String> getWorkloads() {
+        return workloads;
     }
 
-    public void setWorkload(List<String> workload) {
-        this.workload = workload;
+    public void setWorkloads(List<String> workloads) {
+        this.workloads = workloads;
     }
 
     public String getOsName() {
