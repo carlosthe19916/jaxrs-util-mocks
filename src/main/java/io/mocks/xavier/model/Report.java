@@ -2,26 +2,13 @@ package io.mocks.xavier.model;
 
 public class Report {
     private Long id;
-    private String customerId;
-    private String fileName;
-    private Long numberOfHosts;
-    private Long totalDiskSpace;
-    private Long totalPrice;
-    private Long creationDate;
+    private String reportName;
+    private String reportDescription;
+    private Long lastUpdate;
     private Status status;
 
     public Report() {
 
-    }
-
-    public Report(Long id, String customerId, String fileName, Long numberOfHosts, Long totalDiskSpace, Long totalPrice, Long creationDate) {
-        this.id = id;
-        this.customerId = customerId;
-        this.fileName = fileName;
-        this.numberOfHosts = numberOfHosts;
-        this.totalDiskSpace = totalDiskSpace;
-        this.totalPrice = totalPrice;
-        this.creationDate = creationDate;
     }
 
     public Long getId() {
@@ -32,52 +19,28 @@ public class Report {
         this.id = id;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public String getReportDescription() {
+        return reportDescription;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setReportDescription(String reportDescription) {
+        this.reportDescription = reportDescription;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getReportName() {
+        return reportName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
     }
 
-    public Long getNumberOfHosts() {
-        return numberOfHosts;
+    public Long getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setNumberOfHosts(Long numberOfHosts) {
-        this.numberOfHosts = numberOfHosts;
-    }
-
-    public Long getTotalDiskSpace() {
-        return totalDiskSpace;
-    }
-
-    public void setTotalDiskSpace(Long totalDiskSpace) {
-        this.totalDiskSpace = totalDiskSpace;
-    }
-
-    public Long getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Long totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
+    public void setLastUpdate(Long lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 
     public Status getStatus() {

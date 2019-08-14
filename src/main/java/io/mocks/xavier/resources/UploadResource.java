@@ -94,12 +94,10 @@ public class UploadResource {
 
 
         Report report = new Report();
-        report.setCustomerId("111111");
-        report.setFileName(fileName);
-        report.setNumberOfHosts(new Random().nextLong());
-        report.setTotalDiskSpace(new Random().nextLong());
-        report.setTotalPrice(new Random().nextLong());
-        report.setCreationDate(new Date().getTime());
+        report.setReportDescription("111111");
+        report.setReportName(fileName);
+        report.setReportDescription("my report description");
+        report.setLastUpdate(new Date().getTime());
 
         registry.addReport(report);
         addedEvent.fire(report);

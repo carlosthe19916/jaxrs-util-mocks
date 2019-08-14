@@ -8,9 +8,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @ApplicationScoped
 @Path("/api/xavier/report")
@@ -76,29 +74,140 @@ public class ReportResource {
     }
 
     @GET
-    @Path("/{id}/workload-migration-summary")
+    @Path("/{id}/workload-summary")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getWorkloadMigrationSummary(@PathParam("id") Long id) {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Report report = registry.getReport(id);
 
         Response response;
         if (report != null) {
-            WorkloadMigrationSummary workload = new WorkloadMigrationSummary();
+            WorkloadSummary workload = new WorkloadSummary();
 
+            //
             Complexity complexity = new Complexity();
             complexity.setEasy(20L);
             complexity.setMedium(10L);
-            complexity.setHard(40L);
+            complexity.setDifficult(40L);
             complexity.setUnknown(30L);
 
             workload.setComplexity(complexity);
 
+            //
             List<Summary> summaries = new ArrayList<>();
-            summaries.add(new Summary("VMware Provider #1", "VSphere", "6.5.0", 34L, 68L, 8L, 286L));
-            summaries.add(new Summary("VMware Provider #1", "VSphere", "6.5.0", 34L, 68L, 8L, 286L));
-            summaries.add(new Summary("VMware Provider #1", "VSphere", "6.5.0", 34L, 68L, 8L, 286L));
+            summaries.add(new Summary("VMware Provider #1", "VSphere", "6.5.0", 3412L, 6800L, 8555L, 28666L));
+            summaries.add(new Summary("VMware Provider #1", "VSphere", "6.5.0", 3412L, 6800L, 8555L, 28666L));
+            summaries.add(new Summary("VMware Provider #1", "VSphere", "6.5.0", 3412L, 6800L, 8555L, 28666L));
 
             workload.setSummary(summaries);
+
+            //
+            Map<String, Long> targetRecommendations = new HashMap<>();
+            targetRecommendations.put("rhv", 52145L);
+            targetRecommendations.put("osp", 854L);
+            targetRecommendations.put("rhel", 9852L);
+
+            workload.setTargetsRecommendation(targetRecommendations);
+
+            //
+            Map<String, Long> workloadsDetected = new HashMap<>();
+            workloadsDetected.put("rhel", 5874L);
+            workloadsDetected.put("sles", 5874L);
+            workloadsDetected.put("windows", 5874L);
+            workloadsDetected.put("oel", 5874L);
+
+            workload.setWorkloadsDetected(workloadsDetected);
+
+            //
+            List<ScanRun> scanRuns = new ArrayList<>();
+            scanRuns.add(new ScanRun("VMware Provider #1", "Virt Platform", 123456789123L));
+            scanRuns.add(new ScanRun("VMware Provider #2", "Virt Platform", 123456789123L));
+            scanRuns.add(new ScanRun("VMware Provider #3", "Virt Platform", 123456789123L));
+
+            workload.setScanRuns(scanRuns);
+
+            response = Response.ok(workload).build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return response;
+    }
+
+    @GET
+    @Path("/{id}/workload-summary/workloads-detected")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getWorkloadMigrationSummary_workloadsDetected(
+            @PathParam("id") Long id,
+            @QueryParam("page") @DefaultValue("1") int page,
+            @QueryParam("size") @DefaultValue("10") int size,
+            @QueryParam("orderBy") @DefaultValue("id") String orderBy,
+            @QueryParam("orderAsc") @DefaultValue("false") boolean orderAsc
+    ) {
+        Report report = registry.getReport(id);
+
+        Response response;
+        if (report != null) {
+            SearchResult<WorkloadDetected> workload = new SearchResult<>();
+
+            List<WorkloadDetected> elements = new ArrayList<>();
+            elements.add(new WorkloadDetected("SAP", "RHEL", 5L ,8L));
+            elements.add(new WorkloadDetected("SAP", "RHEL", 5L ,8L));
+            elements.add(new WorkloadDetected("SAP", "RHEL", 5L ,8L));
+            elements.add(new WorkloadDetected("SAP", "RHEL", 5L ,8L));
+            elements.add(new WorkloadDetected("SAP", "RHEL", 5L ,8L));
+            elements.add(new WorkloadDetected("SAP", "RHEL", 5L ,8L));
+            elements.add(new WorkloadDetected("SAP", "RHEL", 5L ,8L));
+            elements.add(new WorkloadDetected("SAP", "RHEL", 5L ,8L));
+            elements.add(new WorkloadDetected("SAP", "RHEL", 5L ,8L));
+            elements.add(new WorkloadDetected("SAP", "RHEL", 5L ,8L));
+
+            workload.setTotalElements(elements.size());
+            workload.setContent(elements);
+
+            response = Response.ok(workload).build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return response;
+    }
+
+    @GET
+    @Path("/{id}/workload-summary/flags")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getWorkloadMigrationSummary_flags(
+            @PathParam("id") Long id,
+            @QueryParam("page") @DefaultValue("1") int page,
+            @QueryParam("size") @DefaultValue("10") int size,
+            @QueryParam("orderBy") @DefaultValue("id") String orderBy,
+            @QueryParam("orderAsc") @DefaultValue("false") boolean orderAsc
+    ) {
+        Report report = registry.getReport(id);
+
+        Response response;
+        if (report != null) {
+            SearchResult<Flag> workload = new SearchResult<>();
+
+            List<Flag> elements = new ArrayList<>();
+            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
+
+            workload.setTotalElements(elements.size());
+            workload.setContent(elements);
 
             response = Response.ok(workload).build();
         } else {
@@ -119,7 +228,7 @@ public class ReportResource {
             InitialSavingsEstimationReportModel estimation = new InitialSavingsEstimationReportModel();
             estimation.setId(id);
             estimation.setCustomerId("123456");
-            estimation.setFileName(report.getFileName());
+            estimation.setFileName(report.getReportName());
 
             response = Response.ok(estimation).build();
         } else {
@@ -143,7 +252,7 @@ public class ReportResource {
         if (report != null) {
             List<WorkloadInventoryModel> list = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
-                WorkloadInventoryModel model= new WorkloadInventoryModel();
+                WorkloadInventoryModel model = new WorkloadInventoryModel();
                 model.setProvider("IMV vCenter");
                 model.setDatacenter("V2V-DC");
                 model.setCluster("Cluster 1");

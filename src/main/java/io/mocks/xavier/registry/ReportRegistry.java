@@ -44,7 +44,7 @@ public class ReportRegistry {
         Collections.reverse(list);
 
         List<Report> reverseList = list.stream()
-                .filter(report -> report.getFileName().contains(filterText))
+                .filter(report -> report.getReportName().contains(filterText))
                 .collect(Collectors.toList());
 
         Map<Integer, List<Report>> collect = IntStream.range(0, (reverseList.size() + pageSize - 1) / pageSize)

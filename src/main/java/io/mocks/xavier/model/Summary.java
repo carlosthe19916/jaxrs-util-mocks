@@ -5,7 +5,7 @@ public class Summary {
     private String provider;
     private String product;
     private String version;
-    private Long hypervisors;
+    private Long hosts;
     private Long sockets;
     private Long clusters;
     private Long vms;
@@ -13,11 +13,11 @@ public class Summary {
     public Summary() {
     }
 
-    public Summary(String provider, String product, String version, Long hypervisors, Long sockets, Long clusters, Long vms) {
+    public Summary(String provider, String product, String version, Long hosts, Long sockets, Long clusters, Long vms) {
         this.provider = provider;
         this.product = product;
         this.version = version;
-        this.hypervisors = hypervisors;
+        this.hosts = hosts;
         this.sockets = sockets;
         this.clusters = clusters;
         this.vms = vms;
@@ -47,12 +47,12 @@ public class Summary {
         this.version = version;
     }
 
-    public Long getHypervisors() {
-        return hypervisors;
+    public Long getHosts() {
+        return hosts;
     }
 
-    public void setHypervisors(Long hypervisors) {
-        this.hypervisors = hypervisors;
+    public void setHosts(Long hosts) {
+        this.hosts = hosts;
     }
 
     public Long getSockets() {
