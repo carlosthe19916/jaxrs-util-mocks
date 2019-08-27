@@ -93,7 +93,7 @@ public class ReportResource {
             Complexity complexity = new Complexity();
             complexity.setEasy(20L);
             complexity.setMedium(10L);
-            complexity.setDifficult(40L);
+            complexity.setHard(40L);
             complexity.setUnknown(30L);
 
             workload.setComplexity(complexity);

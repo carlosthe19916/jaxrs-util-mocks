@@ -3,7 +3,7 @@ package io.mocks.xavier.model;
 public class Complexity {
 
     private Long unknown;
-    private Long difficult;
+    private Long hard;
     private Long medium;
     private Long easy;
 
@@ -15,12 +15,12 @@ public class Complexity {
         this.unknown = unknown;
     }
 
-    public Long getDifficult() {
-        return difficult;
+    public Long getHard() {
+        return hard;
     }
 
-    public void setDifficult(Long difficult) {
-        this.difficult = difficult;
+    public void setHard(Long hard) {
+        this.hard = hard;
     }
 
     public Long getMedium() {
