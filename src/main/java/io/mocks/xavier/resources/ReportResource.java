@@ -96,7 +96,7 @@ public class ReportResource {
             complexity.setHard(40L);
             complexity.setUnknown(30L);
 
-            workload.setComplexity(complexity);
+            workload.setComplexityModel(complexity);
 
             //
             List<Summary> summaries = new ArrayList<>();
@@ -104,15 +104,16 @@ public class ReportResource {
             summaries.add(new Summary("VMware Provider #1", "VSphere", "6.5.0", 3412L, 6800L, 8555L, 28666L));
             summaries.add(new Summary("VMware Provider #1", "VSphere", "6.5.0", 3412L, 6800L, 8555L, 28666L));
 
-            workload.setSummary(summaries);
+            workload.setSummaryModels(summaries);
 
             //
             Map<String, Long> targetRecommendations = new HashMap<>();
             targetRecommendations.put("rhv", 52145L);
             targetRecommendations.put("osp", 854L);
             targetRecommendations.put("rhel", 9852L);
+            targetRecommendations.put("total", 875412L);
 
-            workload.setTargetsRecommendation(targetRecommendations);
+            workload.setRecommendedTargetsIMSModel(targetRecommendations);
 
             //
             Map<String, Long> workloadsDetected = new HashMap<>();
@@ -121,7 +122,7 @@ public class ReportResource {
             workloadsDetected.put("windows", 5874L);
             workloadsDetected.put("oel", 5874L);
 
-            workload.setWorkloadsDetected(workloadsDetected);
+            workload.setWorkloadOsTypesDetectedModel(workloadsDetected);
 
             //
             List<ScanRun> scanRuns = new ArrayList<>();
@@ -129,7 +130,7 @@ public class ReportResource {
             scanRuns.add(new ScanRun("VMware Provider #2", "Virt Platform", 123456789123L));
             scanRuns.add(new ScanRun("VMware Provider #3", "Virt Platform", 123456789123L));
 
-            workload.setScanRuns(scanRuns);
+            workload.setScanRunModels(scanRuns);
 
             response = Response.ok(workload).build();
         } else {
@@ -140,7 +141,7 @@ public class ReportResource {
     }
 
     @GET
-    @Path("/{id}/workload-summary/workloads-detected")
+    @Path("/{id}/workload-summary/workloads")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getWorkloadMigrationSummary_workloadsDetected(
             @PathParam("id") Long id,

@@ -5,49 +5,49 @@ import java.util.Map;
 
 public class WorkloadSummary {
 
-    private List<Summary> summary;
-    private Complexity complexity;
-    private Map<String, Long> targetsRecommendation;
-    private Map<String, Long> workloadsDetected;
-    private List<ScanRun> scanRuns;
+    private List<Summary> summaryModels;
+    private Complexity complexityModel;
+    private Map<String, Long> recommendedTargetsIMSModel;
+    private Map<String, Long> workloadOsTypesDetectedModel;
+    private List<ScanRun> scanRunModels;
 
-    public List<Summary> getSummary() {
-        return summary;
+    public List<Summary> getSummaryModels() {
+        return summaryModels;
     }
 
-    public void setSummary(List<Summary> summary) {
-        this.summary = summary;
+    public void setSummaryModels(List<Summary> summaryModels) {
+        this.summaryModels = summaryModels;
     }
 
-    public Complexity getComplexity() {
-        return complexity;
+    public Complexity getComplexityModel() {
+        return complexityModel;
     }
 
-    public void setComplexity(Complexity complexity) {
-        this.complexity = complexity;
+    public void setComplexityModel(Complexity complexityModel) {
+        this.complexityModel = complexityModel;
     }
 
-    public Map<String, Long> getTargetsRecommendation() {
-        return targetsRecommendation;
+    public Map<String, Long> getRecommendedTargetsIMSModel() {
+        return recommendedTargetsIMSModel;
     }
 
-    public void setTargetsRecommendation(Map<String, Long> targetsRecommendation) {
-        this.targetsRecommendation = targetsRecommendation;
+    public void setRecommendedTargetsIMSModel(Map<String, Long> recommendedTargetsIMSModel) {
+        this.recommendedTargetsIMSModel = recommendedTargetsIMSModel;
     }
 
-    public Map<String, Long> getWorkloadsDetected() {
-        return workloadsDetected;
+    public Map<String, Long> getWorkloadOsTypesDetectedModel() {
+        return workloadOsTypesDetectedModel;
     }
 
-    public void setWorkloadsDetected(Map<String, Long> workloadsDetected) {
-        this.workloadsDetected = workloadsDetected;
+    public void setWorkloadOsTypesDetectedModel(Map<String, Long> workloadOsTypesDetectedModel) {
+        this.workloadOsTypesDetectedModel = workloadOsTypesDetectedModel;
     }
 
-    public List<ScanRun> getScanRuns() {
-        return scanRuns;
+    public List<ScanRun> getScanRunModels() {
+        return scanRunModels;
     }
 
-    public void setScanRuns(List<ScanRun> scanRuns) {
-        this.scanRuns = scanRuns;
+    public void setScanRunModels(List<ScanRun> scanRunModels) {
+        this.scanRunModels = scanRunModels;
     }
 }
