@@ -107,13 +107,12 @@ public class ReportResource {
             workload.setSummaryModels(summaries);
 
             //
-            Map<String, Long> targetRecommendations = new HashMap<>();
-            targetRecommendations.put("rhv", 52145L);
-            targetRecommendations.put("osp", 854L);
-            targetRecommendations.put("rhel", 9852L);
-            targetRecommendations.put("total", 875412L);
+            List<WorkloadDetectedOSTypeModel> workloadDetectedOSTypeModels = new ArrayList<>();
+            workloadDetectedOSTypeModels.add(new WorkloadDetectedOSTypeModel("RHV", 52145));
+            workloadDetectedOSTypeModels.add(new WorkloadDetectedOSTypeModel("RHEL", 52145));
+            workloadDetectedOSTypeModels.add(new WorkloadDetectedOSTypeModel("Windows", 52145));
 
-            workload.setRecommendedTargetsIMSModel(targetRecommendations);
+            workload.setWorkloadsDetectedOSTypeModels(workloadDetectedOSTypeModels);
 
             //
             Map<String, Long> workloadsDetected = new HashMap<>();
@@ -196,16 +195,16 @@ public class ReportResource {
             SearchResult<Flag> workload = new SearchResult<>();
 
             List<Flag> elements = new ArrayList<>();
-            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping", "Manual data migration required", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping1", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping2", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping3", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping4", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping5", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping1", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping2", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping3", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping4", "RHEL", 8L, 9L));
+            elements.add(new Flag("Raw Device Mapping5", "RHEL", 8L, 9L));
 
             workload.setTotalElements(elements.size());
             workload.setContent(elements);

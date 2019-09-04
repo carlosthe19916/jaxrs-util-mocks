@@ -7,7 +7,7 @@ public class WorkloadSummary {
 
     private List<Summary> summaryModels;
     private Complexity complexityModel;
-    private Map<String, Long> recommendedTargetsIMSModel;
+    private List<WorkloadDetectedOSTypeModel> workloadsDetectedOSTypeModels;
     private Map<String, Long> workloadOsTypesDetectedModel;
     private List<ScanRun> scanRunModels;
 
@@ -27,14 +27,6 @@ public class WorkloadSummary {
         this.complexityModel = complexityModel;
     }
 
-    public Map<String, Long> getRecommendedTargetsIMSModel() {
-        return recommendedTargetsIMSModel;
-    }
-
-    public void setRecommendedTargetsIMSModel(Map<String, Long> recommendedTargetsIMSModel) {
-        this.recommendedTargetsIMSModel = recommendedTargetsIMSModel;
-    }
-
     public Map<String, Long> getWorkloadOsTypesDetectedModel() {
         return workloadOsTypesDetectedModel;
     }
@@ -49,5 +41,13 @@ public class WorkloadSummary {
 
     public void setScanRunModels(List<ScanRun> scanRunModels) {
         this.scanRunModels = scanRunModels;
+    }
+
+    public List<WorkloadDetectedOSTypeModel> getWorkloadsDetectedOSTypeModels() {
+        return workloadsDetectedOSTypeModels;
+    }
+
+    public void setWorkloadsDetectedOSTypeModels(List<WorkloadDetectedOSTypeModel> workloadsDetectedOSTypeModels) {
+        this.workloadsDetectedOSTypeModels = workloadsDetectedOSTypeModels;
     }
 }
