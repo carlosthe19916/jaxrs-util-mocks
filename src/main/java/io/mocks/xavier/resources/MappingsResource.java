@@ -18,12 +18,13 @@ public class MappingsResource {
     ReportRegistry registry;
 
     @GET
-    @Path("/flag-assessment/{flag}")
+    @Path("/flag-assessment")
     @Produces(MediaType.APPLICATION_JSON)
-    public FlagAssessmentModel getFlagAssessment(
-            @PathParam("flag") String flag
-    ) {
-        return new FlagAssessmentModel(1L, flag, flag + "_assessment");
+    public List<FlagAssessmentModel> getFlagAssessment() {
+        List<FlagAssessmentModel> result = new ArrayList<>();
+        result.add(new FlagAssessmentModel("RDM", "", "Flag Label", "assessment generic"));
+        result.add(new FlagAssessmentModel("RDM", "RHEL", "Flag Label for RHEL", "assessment for RHEL"));
+        return result;
     }
 
 }

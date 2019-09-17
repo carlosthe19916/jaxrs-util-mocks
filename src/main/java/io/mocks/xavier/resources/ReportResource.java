@@ -53,6 +53,7 @@ public class ReportResource {
             response = Response.status(Response.Status.NOT_FOUND)
                     .build();
         }
+
         return response;
     }
 
@@ -135,7 +136,7 @@ public class ReportResource {
         } else {
             response = Response.status(Response.Status.NOT_FOUND).build();
         }
-
+        
         return response;
     }
 
@@ -195,16 +196,16 @@ public class ReportResource {
             SearchResult<Flag> workload = new SearchResult<>();
 
             List<Flag> elements = new ArrayList<>();
-            elements.add(new Flag("Raw Device Mapping1", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping2", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping3", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping4", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping5", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping1", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping2", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping3", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping4", "RHEL", 8L, 9L));
-            elements.add(new Flag("Raw Device Mapping5", "RHEL", 8L, 9L));
+            elements.add(new Flag("RDM", "RHEL", 8L, 9L));
+            elements.add(new Flag("RDM", "RHEL", 8L, 9L));
+            elements.add(new Flag("RDM", "RHEL", 8L, 9L));
+            elements.add(new Flag("RDM", "RHEL", 8L, 9L));
+            elements.add(new Flag("RDM", "RHEL", 8L, 9L));
+            elements.add(new Flag("RDM", "RHEL", 8L, 9L));
+            elements.add(new Flag("RDM", "RHEL", 8L, 9L));
+            elements.add(new Flag("RDM", "RHEL", 8L, 9L));
+            elements.add(new Flag("RDM", "RHEL", 8L, 9L));
+            elements.add(new Flag("RDM", "RHEL", 8L, 9L));
 
             workload.setTotalElements(elements.size());
             workload.setContent(elements);
